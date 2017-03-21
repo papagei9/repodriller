@@ -143,7 +143,8 @@ public class GitRepository implements SCM {
 			throw new RuntimeException("error when info " + path, e);
 		} finally {
 			if (rw != null)
-				rw.release();
+				// rw.release(); // Old jgit 3.5
+				rw.close(); // New jgit 4.5
 			if (git != null)
 				git.close();
 		}
@@ -352,12 +353,14 @@ public class GitRepository implements SCM {
 		if (parentCommit == null) {
 			RevWalk rw = new RevWalk(repo);
 			diffs = df.scan(new EmptyTreeIterator(), new CanonicalTreeParser(null, rw.getObjectReader(), commit.getTree()));
-			rw.release();
+			// rw.release(); // Jgit 3.5
+			rw.close(); // Jgit 4.5
 		} else {
 			diffs = df.scan(parentCommit, currentCommit);
 		}
 
-		df.release();
+		//df.release(); // Jgit 3.5
+		df.close(); // Jgit 4.5
 
 		return diffs;
 	}
@@ -393,7 +396,8 @@ public class GitRepository implements SCM {
 			return "";
 		} finally {
 			if (df2 != null)
-				df2.release();
+				//df2.release(); // Jgit 3.5
+				df2.close(); // Jgit 4.5
 		}
 	}
 

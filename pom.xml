@@ -84,7 +84,7 @@
 		<dependency>
 			<groupId>org.eclipse.jgit</groupId>
 			<artifactId>org.eclipse.jgit</artifactId>
-			<version>3.4.1.201406201815-r</version>
+			<version>4.5.0.201609210915-r</version>
 		</dependency>
 
 		<dependency>
@@ -126,6 +126,16 @@
 	</distributionManagement>
 
 	<build>
+	
+		<resources>
+		  <resource>
+		    <directory>src/main/java</directory>
+		    <includes>
+		      <include>**/*.java</include>
+		    </includes>
+		  </resource>
+		</resources>
+		
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
